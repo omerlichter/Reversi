@@ -17,7 +17,7 @@ using namespace std;
  * main function
  */
 int main() {
-    // create game logic and players
+    // create game logic and players .
     Logic* logic = new ReversiLogic();
     Player* blackPlayer = new LocalPlayer();
     Player* whitePlayer = new LocalPlayer();
