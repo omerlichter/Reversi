@@ -35,7 +35,7 @@ int main() {
     }
 
     // create the game
-    Game game(BOARD_SIZE, logic, blackPlayer, whitePlayer, drawer);
+    Game game(BOARD_SIZE, logic, blackPlayer, whitePlayer, drawer, typeOfGame);
 
     // run the  game
     game.run();

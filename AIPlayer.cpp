@@ -6,8 +6,8 @@
 
 Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
 
-    // find all possible moves of AI Player
-    vector<Point>* vPossibleMoves = logic.moveOptions(White, board);
+    // possible moves of AI Player
+    vector<Point>* vPossibleMoves = points;
 
     // initial the min value to the number of the cells
     int minOppScore = board.getSize() * board.getSize();
@@ -60,5 +60,6 @@ int AIPlayer::maxOppScore(const Logic &logic, Board &board) const {
             maxScore = score;
         }
     }
+    delete(oppPossibleMoves);
     return maxScore;
 }

@@ -21,7 +21,8 @@ public:
      * @param blackPlayer - black player
      * @param whitePlayer - white player
      */
-    Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer);
+    Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer,
+        int typeOfGame);
     /**
      * destructor
      */
@@ -37,6 +38,7 @@ private:
     Board* board_;
     Logic* logic_;
     Drawer* drawer_;
+    int typeOfGame;
 
     /**
     * playe one turn

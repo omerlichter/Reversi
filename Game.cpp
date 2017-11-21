@@ -7,12 +7,14 @@
 
 using namespace std;
 
-Game::Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer) {
+Game::Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer,
+           int typeOfGame) {
     this->board_ = new Board (size);
     this->logic_ = logic;
     this->blackPlayer_ = blackPlayer;
     this->whitePlayer_ = whitePlayer;
     this->drawer_ = drawer;
+    this->typeOfGame = typeOfGame;
 }
 
 Game::~Game() {
@@ -61,7 +63,12 @@ bool Game::playOneTurn(Cell playerColor) {
 
     // print the board on the screen
     this->drawer_->drawBoard(*(this->board_));
-    this->drawer_->darwPlayerMoveTitle(playerColor);
+
+    // if is not the AI Player
+    if (!(this->typeOfGame == 2 && playerColor == White)) {
+        // print the player move title
+        this->drawer_->darwPlayerMoveTitle(playerColor);
+    }
 
     // get all optional moves of the player
     vector<Point>* moveOptions = this->logic_->moveOptions(playerColor, *(this->board_));
@@ -74,14 +81,21 @@ bool Game::playOneTurn(Cell playerColor) {
         return false;
     }
 
-    this->drawer_->drawPossibleMovesTitle(moveOptions);
+    // if is not the AI Player
+    if (!(this->typeOfGame == 2 && playerColor == White)) {
+        this->drawer_->drawPossibleMovesTitle(moveOptions);
+    }
 
     // ask the player to choose move
     Point* chosenMove;
     bool validPoint = false;
     do {
-        // print
-        this->drawer_->drawPlayerInsertDialog();
+
+        // if is not the Ai Player
+        if (!(this->typeOfGame == 2 && playerColor == White)) {
+            // print
+            this->drawer_->drawPlayerInsertDialog();
+        }
 
         if (playerColor == Black) {
             chosenMove = this->blackPlayer_->chooseMove(moveOptions, *(this->logic_), *(this->board_));
@@ -106,6 +120,10 @@ bool Game::playOneTurn(Cell playerColor) {
 
     // play the chosen move
     this->logic_->makeMove(playerColor, *chosenMove, *(this->board_));
+
+    if (this->typeOfGame == 2 && playerColor == White) {
+        drawer_->drawChosenPoint(White, *chosenMove);
+    }
 
     delete(moveOptions);
     delete(chosenMove);

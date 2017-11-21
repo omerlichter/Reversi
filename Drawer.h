@@ -50,7 +50,10 @@ public:
      * @return the chosen option
      */
     virtual int drawOpenMenu() const  = 0;
-
+    /**
+     * print the chosen point
+     */
+    virtual void drawChosenPoint(Cell playerColor, Point& point) const  = 0;
 };
 
 

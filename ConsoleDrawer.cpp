@@ -98,3 +98,15 @@ int ConsoleDrawer::drawOpenMenu() const {
 
     return chosenOption;
 }
+
+void ConsoleDrawer::drawChosenPoint(Cell playerColor, Point &point) const {
+    cout << endl;
+    if (playerColor == Black) {
+        cout << "X ";
+    } else if (playerColor == White) {
+        cout << "O ";
+    }
+    cout << "played ";
+    cout << "(" << point.getRow() << ", " << point.getColumn() << ")" << endl;
+    cout << endl;
+}
