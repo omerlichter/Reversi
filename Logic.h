@@ -18,7 +18,7 @@ public:
      * @param board - board of the game
      * @return all move options of the player
      */
-    virtual vector<Point>* moveOptions(Cell player, Board& board) const = 0 ;
+    virtual vector<Point>* moveOptions(Cell player, const Board& board) const = 0 ;
 
     /**
      * make the move

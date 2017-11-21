@@ -84,10 +84,11 @@ bool Game::playOneTurn(Cell playerColor) {
         this->drawer_->drawPlayerInsertDialog();
 
         if (playerColor == Black) {
-            chosenMove = this->blackPlayer_->chooseMove(moveOptions);
+            chosenMove = this->blackPlayer_->chooseMove(moveOptions, *(this->logic_), *(this->board_));
         } else if (playerColor == White) {
-            chosenMove = this->whitePlayer_->chooseMove(moveOptions);
+            chosenMove = this->whitePlayer_->chooseMove(moveOptions, *(this->logic_), *(this->board_));
         }
+
         // check validation
         if (chosenMove != NULL) {
             validPoint = this->logic_->isValidPoint(moveOptions, *chosenMove);

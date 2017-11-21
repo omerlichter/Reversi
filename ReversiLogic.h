@@ -14,7 +14,7 @@
 class ReversiLogic : public Logic {
 public:
     ReversiLogic();
-    vector<Point>* moveOptions(Cell player, Board& board) const ;
+    vector<Point>* moveOptions(Cell player, const Board& board) const ;
     bool makeMove(Cell player, Point& point, Board& board) const ;
     bool isValidPoint(vector<Point>* points, Point &point) const ;
 

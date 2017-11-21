@@ -19,6 +19,11 @@ public:
      */
     Board(int size);
     /**
+     * copy constructor
+     * @param board - to copy from
+     */
+    Board(const Board& board);
+    /**
      * destructor
      */
     ~Board();

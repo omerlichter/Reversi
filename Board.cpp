@@ -38,6 +38,24 @@ Board::Board(int size) {
     }
 }
 
+Board::Board(const Board &board) {
+    this->whiteCells_ = board.getNumberOfWhiteCells();
+    this->blackCells_ = board.getNumberOfBlackCells();
+    this->size_ = board.getSize();
+
+    this->board_ = new Cell* [this->getSize()];
+    for (int i = 0; i < this->getSize(); i++) {
+        this->board_[i] = new Cell[this->getSize()];
+    }
+
+    // set start board
+    for (int i = 0; i < this->getSize(); i++) {
+        for (int j = 0; j < this->getSize(); j++) {
+            this->board_[i][j] = board.getValueAt(i, j);
+        }
+    }
+}
+
 Board::~Board() {
     for (int i = 0; i < this->size_; i++) {
         delete[](this->board_[i]);

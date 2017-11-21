@@ -8,11 +8,13 @@
 
 #include "Player.h"
 #include <iostream>
+#include "Drawer.h"
 
 using namespace std;
 
 class LocalPlayer : public Player {
-    Point* chooseMove(vector<Point>* points) const ;
+public:
+    Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
 };
 
 

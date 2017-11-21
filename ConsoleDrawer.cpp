@@ -85,3 +85,16 @@ void ConsoleDrawer::drawEndOfGame(Cell winPlayerColor) const {
         cout << "Draw!" << endl;
     }
 }
+
+int ConsoleDrawer::drawOpenMenu() const {
+
+    cout << "----Open Menu----" << endl << endl;
+    cout << "Choose one of the options:" << endl;
+    cout << "1. human vs human" << endl;
+    cout << "2. human vs AI" << endl;
+
+    int chosenOption;
+    cin >> chosenOption;
+
+    return chosenOption;
+}

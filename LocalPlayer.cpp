@@ -5,7 +5,7 @@
 
 #include "LocalPlayer.h"
 
-Point* LocalPlayer::chooseMove(vector<Point> *points) const {
+Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
 
     string input;
     char dummy;

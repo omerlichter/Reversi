@@ -9,7 +9,7 @@ ReversiLogic::ReversiLogic() {
 
 }
 
-vector<Point>* ReversiLogic::moveOptions(Cell player, Board& board) const {
+vector<Point>* ReversiLogic::moveOptions(Cell player, const Board& board) const {
 
     vector<Point>* points = new vector<Point>();
 

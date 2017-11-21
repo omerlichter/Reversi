@@ -18,7 +18,7 @@ public:
      * @param points - points to choose from
      * @return chosen point
      */
-    virtual Point* chooseMove(vector<Point>* points) const = 0 ;
+    virtual Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const = 0 ;
 
 private:
 };

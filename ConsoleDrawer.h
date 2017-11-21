@@ -40,6 +40,11 @@ public:
      * @param winPlayerColor - color of win player
      */
     void drawEndOfGame(Cell winPlayerColor) const ;
+    /**
+     * print the open menu
+     * @return the chosen option
+     */
+    int drawOpenMenu() const ;
 };
 
 

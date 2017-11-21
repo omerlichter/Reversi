@@ -6,12 +6,20 @@
 #define EX1_AIPLAYER_H
 
 #include "Player.h"
-#include "Logic.h"
-#include "Board.h"
 
 
 class AIPlayer : public Player {
-    Point* chooseMove(vector<Point>* points) const ;
+public:
+    Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
+
+private:
+    /**
+     *
+     * @param logic
+     * @param board
+     * @return
+     */
+    int maxOppScore(const Logic& logic, Board& board) const ;
 };
 
 

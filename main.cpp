@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "ReversiLogic.h"
 #include "LocalPlayer.h"
+#include "AIPlayer.h"
 #include "ConsoleDrawer.h"
 
 #define BOARD_SIZE 8
@@ -19,9 +20,19 @@ using namespace std;
 int main() {
     // create game logic and players .
     Logic* logic = new ReversiLogic();
-    Player* blackPlayer = new LocalPlayer();
-    Player* whitePlayer = new LocalPlayer();
+    Player* blackPlayer;
+    Player* whitePlayer;
     Drawer* drawer = new ConsoleDrawer();
+
+    // draw the open menu, and return the chosen option
+    int typeOfGame = drawer->drawOpenMenu();
+    if (typeOfGame == 1) {
+        blackPlayer = new LocalPlayer();
+        whitePlayer = new LocalPlayer();
+    } else if (typeOfGame == 2) {
+        blackPlayer = new LocalPlayer();
+        whitePlayer = new AIPlayer();
+    }
 
     // create the game
     Game game(BOARD_SIZE, logic, blackPlayer, whitePlayer, drawer);
