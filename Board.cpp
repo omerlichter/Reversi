@@ -73,6 +73,7 @@ int Board::getSize() const {
 }
 
 Cell Board::getValueAt(int row, int column) const {
+    if (row < this->getSize() && row >= 0 && column < this->getSize() && column >= 0)
     return this->board_[row][column];
 }
 
@@ -103,4 +104,20 @@ int Board::getNumberOfBlackCells() const {
 
 int Board::getNumberOfWhiteCells() const {
     return this->whiteCells_;
+}
+
+bool Board::operator==(Board &board1) const {
+
+    if (board1.getSize() != this->getSize()) {
+        return false;
+    }
+
+    for (int i = 0; i < board1.getSize(); i++) {
+        for (int j = 0; j < board1.getSize(); j++) {
+            if (board1.getValueAt(i, j) != this->getValueAt(i, j)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

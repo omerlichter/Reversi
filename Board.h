@@ -61,6 +61,13 @@ public:
      * @return the number of the white cells
      */
     int getNumberOfWhiteCells() const ;
+    /**
+     * check if the boards are equal
+     * @param board1 - board
+     * @param board2 - board
+     * @return true if their equal
+     */
+    bool operator==(Board& board1) const ;
 
 private:
     Cell** board_;

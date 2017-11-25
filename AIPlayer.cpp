@@ -32,8 +32,8 @@ Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Boa
             minOppScoreMove->setColumn(AIPlyerMove.getColumn());
             minOppScoreMove->setRow(AIPlyerMove.getRow());
         }
-        return minOppScoreMove;
     }
+    return minOppScoreMove;
 }
 
 int AIPlayer::maxOppScore(const Logic &logic, Board &board) const {

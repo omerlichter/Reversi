@@ -23,7 +23,7 @@ using namespace std;
  * main function
  */
 int main(int argc, char** argv) {
-    /*
+
     // create game logic and players .
     Logic* logic = new ReversiLogic();
     Player* blackPlayer;
@@ -51,7 +51,4 @@ int main(int argc, char** argv) {
     delete(blackPlayer);
     delete(whitePlayer);
     delete(drawer);
-*/
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
