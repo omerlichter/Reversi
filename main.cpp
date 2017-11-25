@@ -1,14 +1,19 @@
 //
 // omer lichter
 // id: 314649666
+// dvir plaksin
+// id: 318947520
 //
 
 #include <iostream>
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 #include "Game.h"
 #include "ReversiLogic.h"
 #include "LocalPlayer.h"
 #include "AIPlayer.h"
 #include "ConsoleDrawer.h"
+
 
 #define BOARD_SIZE 8
 
@@ -17,7 +22,8 @@ using namespace std;
 /*
  * main function
  */
-int main() {
+int main(int argc, char** argv) {
+    /*
     // create game logic and players .
     Logic* logic = new ReversiLogic();
     Player* blackPlayer;
@@ -45,6 +51,7 @@ int main() {
     delete(blackPlayer);
     delete(whitePlayer);
     delete(drawer);
-
-    return 0;
+*/
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
