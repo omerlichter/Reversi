@@ -45,3 +45,18 @@ TEST(AIPlayerTest, FullBoardChooseMoveTest) {
     delete(possiblePoints);
     delete(chosenPoint);
 }
+
+TEST(AIPlayerTest, NoPossibleMoveTest) {
+    Board board(8);
+    for (int i = 0; i < board.getSize(); i++) {
+        board.setValueAt(i, i, Black);
+    }
+    ReversiLogic reversiLogic;
+    AIPlayer player;
+    vector<Point>* possiblePoints = reversiLogic.moveOptions(White, board);
+    Point* chosenPoint = player.chooseMove(possiblePoints, reversiLogic, board);
+    EXPECT_EQ(chosenPoint->getRow(), -1);
+    EXPECT_EQ(chosenPoint->getColumn(), -1);
+    delete(possiblePoints);
+    delete(chosenPoint);
+}
