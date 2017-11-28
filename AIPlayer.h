@@ -15,10 +15,10 @@ public:
 
 private:
     /**
-     *
-     * @param logic
-     * @param board
-     * @return
+     * calculate the maximum points that the opp can rich
+     * @param logic - logic of the game
+     * @param board - current status of board
+     * @return the maximum points that the opp can rich
      */
     int maxOppScore(const Logic& logic, Board& board) const ;
 };

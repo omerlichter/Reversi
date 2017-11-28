@@ -1,0 +1,62 @@
+commit f575c4e0e851315c4b4e482cdb331769b589a9b8
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Tue Nov 28 08:01:49 2017 -0800
+
+    Added names on files
+
+commit 2aad44d567c67f104c2bc12922fb0c21dbcaff6b
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Sun Nov 26 09:30:08 2017 -0800
+
+    added test for AIPlayer
+
+commit f8054d33f9bcc77d9261c1ed863d44d4c4da6188
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Sat Nov 25 13:09:04 2017 -0800
+
+    Added tests for ReversiLogic, Board, AIPlayer
+
+commit e6b11b07a35eded9fb2c809159d98a23c0306593
+Author: Dvir Plaksin <dvirpla@gmail.com>
+Date:   Sat Nov 25 20:53:37 2017 +0200
+
+    Tests Adding
+
+commit 4361c3076106d49393d3731d902949fef02c212d
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Tue Nov 21 04:49:11 2017 -0800
+
+    Added open menu
+
+commit d4b449b7367a60c1c9f5105e5e31a8e7210b5c05
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Tue Nov 21 04:08:12 2017 -0800
+
+    Added AI player algorithms
+
+commit e469f84bb476ab47470ec5663500146cc92ea3b4
+Author: Dvir Plaksin <dvirpla@gmail.com>
+Date:   Mon Nov 20 11:53:45 2017 +0200
+
+    modified main
+
+commit 696676b2756eacf7bef38b131a632c615da14b66
+Merge: 1e6d4eb d6e35d9
+Author: Omer Lichter <33748198+omerlichter@users.noreply.github.com>
+Date:   Sun Nov 19 10:22:14 2017 -0800
+
+    Merge pull request #1 from omerlichter/init
+    
+    Init
+
+commit d6e35d9166388be899b26ef6fa184f67b338f92d
+Author: Omer Lichter <omerlichter@gmail.com>
+Date:   Sun Nov 19 10:20:56 2017 -0800
+
+    Init
+
+commit 1e6d4eb3546e8b92153ef0d33d99af9831fa37cd
+Author: Omer Lichter <33748198+omerlichter@users.noreply.github.com>
+Date:   Sun Nov 19 20:04:20 2017 +0200
+
+    Initial commit
