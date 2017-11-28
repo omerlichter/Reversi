@@ -1,5 +1,6 @@
 //
-// Created by omer on 11/19/17.
+// omer lichter
+// id: 314649666
 //
 
 #ifndef EX1_AIPLAYER_H

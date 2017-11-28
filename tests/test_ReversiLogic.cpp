@@ -1,6 +1,8 @@
 //
-// Created by omer on 11/25/17.
+// omer lichter
+// id: 314649666
 //
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../Board.h"

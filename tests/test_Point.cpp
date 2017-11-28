@@ -1,6 +1,8 @@
 //
-// Created by dvir on 25/11/17.
+// omer lichter
+// id: 314649666
 //
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../Point.h"

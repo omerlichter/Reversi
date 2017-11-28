@@ -1,5 +1,6 @@
 //
-// Created by omer on 11/19/17.
+// omer lichter
+// id: 314649666
 //
 
 #include "AIPlayer.h"
