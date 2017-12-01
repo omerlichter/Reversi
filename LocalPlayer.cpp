@@ -5,6 +5,9 @@
 
 #include "LocalPlayer.h"
 
+LocalPlayer::LocalPlayer(Cell color) : Player(color) {
+}
+
 Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
 
     string input;

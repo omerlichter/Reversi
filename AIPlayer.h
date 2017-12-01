@@ -11,6 +11,7 @@
 
 class AIPlayer : public Player {
 public:
+    AIPlayer(Cell color);
     Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
 
 private:

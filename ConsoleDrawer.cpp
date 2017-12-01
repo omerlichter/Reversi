@@ -88,13 +88,19 @@ void ConsoleDrawer::drawEndOfGame(Cell winPlayerColor) const {
 
 int ConsoleDrawer::drawOpenMenu() const {
 
-    cout << "----Open Menu----" << endl << endl;
-    cout << "Choose one of the options:" << endl;
-    cout << "1. human vs human" << endl;
-    cout << "2. human vs AI" << endl;
-
     int chosenOption;
-    cin >> chosenOption;
+    do {
+        cout << "----Open Menu----" << endl << endl;
+        cout << "Choose one of the options:" << endl;
+        cout << "1. human vs human" << endl;
+        cout << "2. human vs AI" << endl;
+
+        cin >> chosenOption;
+        if (chosenOption != 1 && chosenOption != 2) {
+            cout << "not valid option" << endl;
+        }
+
+    } while (chosenOption != 1 && chosenOption != 2);
 
     return chosenOption;
 }

@@ -7,12 +7,12 @@
 
 using namespace std;
 
-Game::Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer,
+Game::Game(int size, Logic* logic, Player* player1, Player* player2, Drawer *drawer,
            int typeOfGame) {
     this->board_ = new Board (size);
     this->logic_ = logic;
-    this->blackPlayer_ = blackPlayer;
-    this->whitePlayer_ = whitePlayer;
+    this->player1_ = player1;
+    this->player2_ = player2;
     this->drawer_ = drawer;
     this->typeOfGame = typeOfGame;
 }
@@ -29,15 +29,26 @@ void Game::run() {
     int numberOfCells = this->board_->getSize() * this->board_->getSize();
     int turnNumber = 0;
 
+    Player* blackPlayer;
+    Player* whitePlayer;
+
+    if (this->player1_->getPlayerColor() == Black) {
+        blackPlayer = this->player1_;
+        whitePlayer = this->player2_;
+    } else {
+        blackPlayer = this->player2_;
+        whitePlayer = this->player1_;
+    }
+
     while ((blackPlayerHaveOptions || whitePlayerHaveOptions) &&
             numberOfFullCells < numberOfCells) {
         // start new turn
         turnNumber++;
 
         if (turnNumber % 2 == 0) {
-            whitePlayerHaveOptions = this->playOneTurn(White);
+            whitePlayerHaveOptions = this->playOneTurn(whitePlayer);
         } else {
-            blackPlayerHaveOptions = this->playOneTurn(Black);
+            blackPlayerHaveOptions = this->playOneTurn(blackPlayer);
         }
 
         // add the number of full cells
@@ -58,20 +69,20 @@ void Game::run() {
     }
 }
 
-bool Game::playOneTurn(Cell playerColor) {
+bool Game::playOneTurn(Player* player) {
     string message;
 
     // print the board on the screen
     this->drawer_->drawBoard(*(this->board_));
 
     // if is not the AI Player
-    if (!(this->typeOfGame == 2 && playerColor == White)) {
+    if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
         // print the player move title
-        this->drawer_->darwPlayerMoveTitle(playerColor);
+        this->drawer_->darwPlayerMoveTitle(player->getPlayerColor());
     }
 
     // get all optional moves of the player
-    vector<Point>* moveOptions = this->logic_->moveOptions(playerColor, *(this->board_));
+    vector<Point>* moveOptions = this->logic_->moveOptions(player->getPlayerColor(), *(this->board_));
 
     // if there no moves for this player
     if (moveOptions->size() == 0) {
@@ -82,7 +93,7 @@ bool Game::playOneTurn(Cell playerColor) {
     }
 
     // if is not the AI Player
-    if (!(this->typeOfGame == 2 && playerColor == White)) {
+    if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
         this->drawer_->drawPossibleMovesTitle(moveOptions);
     }
 
@@ -92,16 +103,12 @@ bool Game::playOneTurn(Cell playerColor) {
     do {
 
         // if is not the Ai Player
-        if (!(this->typeOfGame == 2 && playerColor == White)) {
+        if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
             // print
             this->drawer_->drawPlayerInsertDialog();
         }
 
-        if (playerColor == Black) {
-            chosenMove = this->blackPlayer_->chooseMove(moveOptions, *(this->logic_), *(this->board_));
-        } else if (playerColor == White) {
-            chosenMove = this->whitePlayer_->chooseMove(moveOptions, *(this->logic_), *(this->board_));
-        }
+        chosenMove = player->chooseMove(moveOptions, *(this->logic_), *(this->board_));
 
         // check validation
         if (chosenMove != NULL) {
@@ -119,9 +126,10 @@ bool Game::playOneTurn(Cell playerColor) {
 
 
     // play the chosen move
-    this->logic_->makeMove(playerColor, *chosenMove, *(this->board_));
+    this->logic_->makeMove(player->getPlayerColor(), *chosenMove, *(this->board_));
 
-    if (this->typeOfGame == 2 && playerColor == White) {
+    // if is the Ai Player
+    if (this->typeOfGame == 2 && player->getPlayerColor() == White) {
         drawer_->drawChosenPoint(White, *chosenMove);
     }
 

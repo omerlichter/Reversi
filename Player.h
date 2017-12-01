@@ -14,13 +14,28 @@
 class Player {
 public:
     /**
+     * default constructor
+     */
+    Player();
+    /**
+     * constructor
+     * @param color - player color
+     */
+    Player(Cell color);
+    /**
+     * get function
+     * @return color of the player
+     */
+    Cell getPlayerColor() const ;
+    /**
      * choose point from the list
      * @param points - points to choose from
      * @return chosen point
      */
     virtual Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const = 0 ;
 
-private:
+protected:
+    Cell playerColor_;
 };
 
 

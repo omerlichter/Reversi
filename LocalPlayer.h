@@ -14,6 +14,7 @@ using namespace std;
 
 class LocalPlayer : public Player {
 public:
+    LocalPlayer(Cell color);
     Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
 };
 

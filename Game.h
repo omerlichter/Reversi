@@ -33,8 +33,8 @@ public:
     void run();
 
 private:
-    Player* blackPlayer_;
-    Player* whitePlayer_;
+    Player* player1_;
+    Player* player2_;
     Board* board_;
     Logic* logic_;
     Drawer* drawer_;
@@ -45,7 +45,7 @@ private:
     * @param playerColor - player turn
     * @return true if there moves to do and false if else
     */
-    bool playOneTurn(Cell playerColor);
+    bool playOneTurn(Player* player);
 };
 
 

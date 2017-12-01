@@ -13,7 +13,7 @@
 TEST(AIPlayerTest, ChooseMoveTest) {
     Board board(8);
     ReversiLogic reversiLogic;
-    AIPlayer player;
+    AIPlayer player(White);
     Point point1(3, 4);
     reversiLogic.makeMove(Black, point1, board);
     vector<Point>* possiblePoints = reversiLogic.moveOptions(White, board);
@@ -41,7 +41,7 @@ TEST(AIPlayerTest, FullBoardChooseMoveTest) {
         }
     }
     ReversiLogic reversiLogic;
-    AIPlayer player;
+    AIPlayer player(White);
     vector<Point>* possiblePoints = reversiLogic.moveOptions(White, board);
     Point* chosenPoint = player.chooseMove(possiblePoints, reversiLogic, board);
     EXPECT_EQ(chosenPoint->getRow(), -1);
@@ -56,7 +56,7 @@ TEST(AIPlayerTest, NoPossibleMoveTest) {
         board.setValueAt(i, i, Black);
     }
     ReversiLogic reversiLogic;
-    AIPlayer player;
+    AIPlayer player(White);
     vector<Point>* possiblePoints = reversiLogic.moveOptions(White, board);
     Point* chosenPoint = player.chooseMove(possiblePoints, reversiLogic, board);
     EXPECT_EQ(chosenPoint->getRow(), -1);

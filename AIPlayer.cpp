@@ -5,6 +5,9 @@
 
 #include "AIPlayer.h"
 
+AIPlayer::AIPlayer(Cell color) : Player(color) {
+}
+
 Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
 
     // possible moves of AI Player
@@ -23,7 +26,7 @@ Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Boa
         Board vBoard(board);
 
         // make the AI player move
-        logic.makeMove(White, AIPlyerMove, vBoard);
+        logic.makeMove(this->playerColor_, AIPlyerMove, vBoard);
 
         // get the max score of the opponent in this state of board
         int maxScore = maxOppScore(logic, vBoard);
@@ -41,8 +44,14 @@ int AIPlayer::maxOppScore(const Logic &logic, Board &board) const {
 
     // initial the max value to the minimal possible score
     int maxScore = board.getSize() * board.getSize() * -1;
+    Cell oppColor;
+    if (this->playerColor_ == Black) {
+        oppColor = White;
+    } else {
+        oppColor = Black;
+    }
 
-    vector<Point>* oppPossibleMoves = logic.moveOptions(Black, board);
+    vector<Point>* oppPossibleMoves = logic.moveOptions(oppColor, board);
     for (int i = 0; i < oppPossibleMoves->size(); i++) {
         // create new virtual board that is copy of the board
         Board vBoard(board);
@@ -51,7 +60,7 @@ int AIPlayer::maxOppScore(const Logic &logic, Board &board) const {
         Point oppMove = oppPossibleMoves->at(i);
 
         // make the opp move
-        logic.makeMove(Black, oppMove, vBoard);
+        logic.makeMove(oppColor, oppMove, vBoard);
 
         // calculate the score of the move
         int score = vBoard.getNumberOfBlackCells() - vBoard.getNumberOfWhiteCells();
