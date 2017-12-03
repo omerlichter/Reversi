@@ -7,6 +7,8 @@
 #define EX1_POINT_H
 
 #include <string>
+#include <sstream>
+#include <iostream>
 using namespace std;
 
 class Point {
@@ -17,6 +19,11 @@ public:
      * @param column - column of the point
      */
     Point(int row, int column);
+    /**
+     * constructor
+     * @param pointString - string repersnting the point
+     */
+    Point(string pointString);
     /*
      * get the row of the point
      */
@@ -41,6 +48,10 @@ public:
      * @return true if equal and false else
      */
     bool isEqual(Point &point) const ;
+    /**
+     * to string function
+     */
+    string toString() const ;
 
 private:
     int row_;

@@ -62,7 +62,7 @@ void ConsoleDrawer::drawPossibleMovesTitle(vector<Point> *moves) const {
     cout << "Your possible moves: ";
     for (int i = 0; i < moves->size(); i++) {
         Point point = moves->at(i);
-        cout << "(" << point.getRow() << ", " << point.getColumn() << ") ";
+        cout << "(" << point.toString() << ") ";
     }
     cout << endl << endl;
 }
@@ -94,13 +94,14 @@ int ConsoleDrawer::drawOpenMenu() const {
         cout << "Choose one of the options:" << endl;
         cout << "1. human vs human" << endl;
         cout << "2. human vs AI" << endl;
+        cout << "3. join a remote game" << endl;
 
         cin >> chosenOption;
-        if (chosenOption != 1 && chosenOption != 2) {
+        if (chosenOption != 1 && chosenOption != 2 && chosenOption != 3) {
             cout << "not valid option" << endl;
         }
 
-    } while (chosenOption != 1 && chosenOption != 2);
+    } while (chosenOption != 1 && chosenOption != 2 && chosenOption != 3);
 
     return chosenOption;
 }
@@ -113,6 +114,6 @@ void ConsoleDrawer::drawChosenPoint(Cell playerColor, Point &point) const {
         cout << "O ";
     }
     cout << "played ";
-    cout << "(" << point.getRow() << ", " << point.getColumn() << ")" << endl;
+    cout << "(" << point.toString() << ")" << endl;
     cout << endl;
 }

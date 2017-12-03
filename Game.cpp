@@ -84,54 +84,25 @@ bool Game::playOneTurn(Player* player) {
     // get all optional moves of the player
     vector<Point>* moveOptions = this->logic_->moveOptions(player->getPlayerColor(), *(this->board_));
 
-    // if there no moves for this player
-    if (moveOptions->size() == 0) {
-        message = "No possible moves. Play passes back to the other player. ";
-        this->drawer_->drawMessage(message);
-        delete(moveOptions);
-        return false;
-    }
-
     // if is not the AI Player
     if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
-        this->drawer_->drawPossibleMovesTitle(moveOptions);
+        if (moveOptions->size() > 0) {
+            this->drawer_->drawPossibleMovesTitle(moveOptions);
+        }
     }
 
     // ask the player to choose move
     Point* chosenMove;
-    bool validPoint = false;
-    do {
+    chosenMove = player->chooseMove(moveOptions, *(this->logic_), *(this->board_));
 
-        // if is not the Ai Player
-        if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
-            // print
-            this->drawer_->drawPlayerInsertDialog();
-        }
-
-        chosenMove = player->chooseMove(moveOptions, *(this->logic_), *(this->board_));
-
-        // check validation
-        if (chosenMove != NULL) {
-            validPoint = this->logic_->isValidPoint(moveOptions, *chosenMove);
-        } else {
-            validPoint = false;
-        }
-        if (validPoint == false) {
-            delete(chosenMove);
-            message = "not Valid Point";
-            this->drawer_->drawMessage(message);
-        }
-
-    } while (validPoint == false);
-
+    // if there no moves for this player
+    if (chosenMove == NULL) {
+        delete(moveOptions);
+        return false;
+    }
 
     // play the chosen move
     this->logic_->makeMove(player->getPlayerColor(), *chosenMove, *(this->board_));
-
-    // if is the Ai Player
-    if (this->typeOfGame == 2 && player->getPlayerColor() == White) {
-        drawer_->drawChosenPoint(White, *chosenMove);
-    }
 
     delete(moveOptions);
     delete(chosenMove);

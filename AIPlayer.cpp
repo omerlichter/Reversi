@@ -5,10 +5,17 @@
 
 #include "AIPlayer.h"
 
-AIPlayer::AIPlayer(Cell color) : Player(color) {
+AIPlayer::AIPlayer(Drawer *drawer, Cell color) : Player(drawer, color) {
 }
 
 Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
+
+    // if there no moves for this player
+    if (points->size() == 0) {
+        string message = "No possible moves. Play passes back to the other player. ";
+        this->drawer_->drawMessage(message);
+        return NULL;
+    }
 
     // possible moves of AI Player
     vector<Point>* vPossibleMoves = points;
@@ -37,6 +44,8 @@ Point* AIPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Boa
             minOppScoreMove->setRow(AIPlyerMove.getRow());
         }
     }
+
+    drawer_->drawChosenPoint(White, *minOppScoreMove);
     return minOppScoreMove;
 }
 

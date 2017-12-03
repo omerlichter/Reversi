@@ -4,11 +4,11 @@
 
 #include "Player.h"
 
-Player::Player() {
+Player::Player(Drawer *drawer) : drawer_(drawer) {
 
 }
 
-Player::Player(Cell color) : playerColor_(color) {
+Player::Player(Drawer *drawer, Cell color) : drawer_(drawer), playerColor_(color) {
 }
 
 Cell Player::getPlayerColor() const {

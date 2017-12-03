@@ -8,13 +8,14 @@
 
 #include "Player.h"
 #include <iostream>
+#include <sstream>
 #include "Drawer.h"
 
 using namespace std;
 
 class LocalPlayer : public Player {
 public:
-    LocalPlayer(Cell color);
+    LocalPlayer(Drawer *drawer, Cell color);
     Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
 };
 

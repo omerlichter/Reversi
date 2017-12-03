@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Board.h"
 #include "Logic.h"
+#include "Drawer.h"
 #include <vector>
 
 class Player {
@@ -16,12 +17,12 @@ public:
     /**
      * default constructor
      */
-    Player();
+    Player(Drawer *drawer);
     /**
      * constructor
      * @param color - player color
      */
-    Player(Cell color);
+    Player(Drawer *drawer, Cell color);
     /**
      * get function
      * @return color of the player
@@ -35,6 +36,7 @@ public:
     virtual Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const = 0 ;
 
 protected:
+    Drawer *drawer_;
     Cell playerColor_;
 };
 

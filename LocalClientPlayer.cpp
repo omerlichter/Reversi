@@ -1,14 +1,15 @@
 //
-// omer lichter
-// id: 314649666
+// Created by omer on 12/1/17.
 //
 
-#include "LocalPlayer.h"
+#include "LocalClientPlayer.h"
 
-LocalPlayer::LocalPlayer(Drawer *drawer, Cell color) : Player(drawer, color) {
+LocalClientPlayer::LocalClientPlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
+    Player(drawer, color), remoteGameClient_(remoteGameClient){
+
 }
 
-Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const {
+Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, const Board &board) const {
 
     string input;
     int row;
@@ -20,6 +21,11 @@ Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const 
     if (points->size() == 0) {
         string message = "No possible moves. Play passes back to the other player. ";
         this->drawer_->drawMessage(message);
+
+        // send to the server
+        const char *moveBuff = "NoMove";
+        this->remoteGameClient_.sendToServer(moveBuff);
+
         return NULL;
     }
 
@@ -54,6 +60,19 @@ Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const 
             this->drawer_->drawMessage(message);
         }
     } while (validPoint == false);
+
+    // send to the server
+    string pointString = point->toString();
+    const char *pointBuff = pointString.c_str();
+    char moveBuff[10];
+    for (int i = 0; i < 10; i++) {
+        if (i < pointString.size()) {
+            moveBuff[i] = pointBuff[i];
+        } else {
+            moveBuff[i] = '\0';
+        }
+    }
+    this->remoteGameClient_.sendToServer(moveBuff);
 
     return point;
 }
