@@ -34,6 +34,10 @@ public:
      * @return chosen point
      */
     virtual Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const = 0 ;
+    /**
+     * tell the player that the game end
+     */
+    virtual void endOfGame() const ;
 
 protected:
     Drawer *drawer_;

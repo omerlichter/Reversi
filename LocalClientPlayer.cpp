@@ -76,3 +76,7 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
 
     return point;
 }
+
+void LocalClientPlayer::endOfGame() const {
+    this->remoteGameClient_.sendToServer("END");
+}

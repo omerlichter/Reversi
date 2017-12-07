@@ -12,6 +12,10 @@ class LocalClientPlayer : public Player {
 public:
     LocalClientPlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient);
     Point* chooseMove(vector<Point>* points, const Logic& logic, const Board& board) const ;
+    /**
+     * send to server this is end of game
+     */
+    void endOfGame() const ;
 
 private:
     RemoteGameClient remoteGameClient_;

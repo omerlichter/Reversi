@@ -59,6 +59,13 @@ void Game::run() {
     // print the board on the screen
     this->drawer_->drawBoard(*(this->board_));
 
+    // send end of game to the second player.
+    if (turnNumber % 2 == 0) {
+        blackPlayer->endOfGame();
+    } else {
+        whitePlayer->endOfGame();
+    }
+
     // check who win
     if (this->board_->getNumberOfBlackCells() > this->board_->getNumberOfWhiteCells()) {
         this->drawer_->drawEndOfGame(Black);

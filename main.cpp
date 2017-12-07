@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "Game.h"
 #include "ReversiLogic.h"
 #include "LocalPlayer.h"
@@ -40,7 +41,16 @@ int main(int argc, char** argv) {
         player1 = new LocalPlayer(drawer, Black);
         player2 = new AIPlayer(drawer, White);
     } else if (typeOfGame == 3) {
-        RemoteGameClient remoteGameClient("127.0.0.1", 12345);
+        // get ip and port from file
+        ifstream inFile;
+        inFile.open("setting_client.txt");
+        string ip;
+        int port;
+        inFile >> ip;
+        inFile >> port;
+        const char *ip_c = ip.c_str();
+
+        RemoteGameClient remoteGameClient(ip_c, port);
         try {
             int clientNumber = remoteGameClient.connectToServer();
             if (clientNumber == 1) {
@@ -50,8 +60,8 @@ int main(int argc, char** argv) {
                 player1 = new LocalClientPlayer(drawer, White, remoteGameClient);
                 player2 = new RemotePlayer(drawer, Black, remoteGameClient);
             }
-        } catch (exception e) {
-            cout << "Error in Remote Game Client with message: " << endl;
+        } catch (const char *msg) {
+            cout << "Error in Remote Game Client with message: " << msg << endl;
             return 0;
         }
     }
