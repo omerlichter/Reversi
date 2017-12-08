@@ -1,7 +1,3 @@
-//
-// Created by omer on 12/1/17.
-//
-
 #ifndef REVERSI_REMOTEGAMECLIENT_H
 #define REVERSI_REMOTEGAMECLIENT_H
 

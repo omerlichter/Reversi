@@ -1,7 +1,3 @@
-//
-// Created by omer on 11/30/17.
-//
-
 #include "Player.h"
 
 Player::Player(Drawer *drawer) : drawer_(drawer) {

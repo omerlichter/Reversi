@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include "LocalPlayer.h"
 
 LocalPlayer::LocalPlayer(Drawer *drawer, Cell color) : Player(drawer, color) {
@@ -22,6 +17,12 @@ Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const 
         this->drawer_->drawMessage(message);
         return NULL;
     }
+
+    // print the player move title
+    this->drawer_->darwPlayerMoveTitle(this->getPlayerColor());
+
+    // print the possible moves
+    this->drawer_->drawPossibleMovesTitle(points);
 
     do {
         // print

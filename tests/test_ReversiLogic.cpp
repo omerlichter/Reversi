@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../Board.h"

@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include "ReversiLogic.h"
 
 ReversiLogic::ReversiLogic() {

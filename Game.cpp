@@ -1,20 +1,13 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include "Game.h"
 
 using namespace std;
 
-Game::Game(int size, Logic* logic, Player* player1, Player* player2, Drawer *drawer,
-           int typeOfGame) {
+Game::Game(int size, Logic* logic, Player* player1, Player* player2, Drawer *drawer) {
     this->board_ = new Board (size);
     this->logic_ = logic;
     this->player1_ = player1;
     this->player2_ = player2;
     this->drawer_ = drawer;
-    this->typeOfGame = typeOfGame;
 }
 
 Game::~Game() {
@@ -32,6 +25,7 @@ void Game::run() {
     Player* blackPlayer;
     Player* whitePlayer;
 
+    // check who is thwe black and white players
     if (this->player1_->getPlayerColor() == Black) {
         blackPlayer = this->player1_;
         whitePlayer = this->player2_;
@@ -77,26 +71,12 @@ void Game::run() {
 }
 
 bool Game::playOneTurn(Player* player) {
-    string message;
 
     // print the board on the screen
     this->drawer_->drawBoard(*(this->board_));
 
-    // if is not the AI Player
-    if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
-        // print the player move title
-        this->drawer_->darwPlayerMoveTitle(player->getPlayerColor());
-    }
-
     // get all optional moves of the player
     vector<Point>* moveOptions = this->logic_->moveOptions(player->getPlayerColor(), *(this->board_));
-
-    // if is not the AI Player
-    if (!(this->typeOfGame == 2 && player->getPlayerColor() == White)) {
-        if (moveOptions->size() > 0) {
-            this->drawer_->drawPossibleMovesTitle(moveOptions);
-        }
-    }
 
     // ask the player to choose move
     Point* chosenMove;

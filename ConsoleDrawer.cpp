@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include "ConsoleDrawer.h"
 
 void ConsoleDrawer::drawBoard(Board &board) const {

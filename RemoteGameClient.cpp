@@ -1,7 +1,3 @@
-//
-// Created by omer on 12/1/17.
-//
-
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -16,7 +12,6 @@ using namespace std;
 RemoteGameClient::RemoteGameClient(const char *serverIP, int serverPort):
         serverIP_(serverIP), serverPort_(serverPort),
         clientSocket_(0) {
-    cout << "Client" << endl;
 }
 
 int RemoteGameClient::connectToServer() {
@@ -53,20 +48,20 @@ int RemoteGameClient::connectToServer() {
         throw "Error connecting to server";
     }
     cout << "Connected to server" << endl;
+    cout << "waiting for other player to join..." << endl;
 
     //-----------------------------------
-
+    // read the player number from server
     int playerNumber;
     int stat = read(this->clientSocket_, &playerNumber, sizeof(playerNumber));
     if (stat == -1) {
         throw "Error read playerNumber from socket";
     }
-
-    cout << "Get player number from server: " << playerNumber << endl;
     return playerNumber;
 }
 
 int RemoteGameClient::sendToServer(const char *moveBuff) const {
+    // send the buffer to the server
     int stat = write(this->clientSocket_, moveBuff, 10);
     if (stat == -1) {
         throw "Error writing moveBuff to socket";
@@ -75,6 +70,7 @@ int RemoteGameClient::sendToServer(const char *moveBuff) const {
 }
 
 int RemoteGameClient::getFromServer(char *moveBuff) const {
+    // read the buffer from server
     int stat = read(this->clientSocket_, moveBuff, 10);
     if (stat == -1) {
         throw "Error reading moveBuff from socket";

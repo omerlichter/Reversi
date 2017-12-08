@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #ifndef EX1_LOGIC_H
 #define EX1_LOGIC_H
 

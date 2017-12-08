@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #include "AIPlayer.h"
 
 AIPlayer::AIPlayer(Drawer *drawer, Cell color) : Player(drawer, color) {

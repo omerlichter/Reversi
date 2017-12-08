@@ -1,10 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-// dvir plaksin
-// id: 318947520
-//
-
 #include <iostream>
 #include <fstream>
 #include "Game.h"
@@ -34,40 +27,44 @@ int main(int argc, char** argv) {
 
     // draw the open menu, and return the chosen option
     int typeOfGame = drawer->drawOpenMenu();
-    if (typeOfGame == 1) {
-        player1 = new LocalPlayer(drawer, Black);
-        player2 = new LocalPlayer(drawer, White);
-    } else if (typeOfGame == 2) {
-        player1 = new LocalPlayer(drawer, Black);
-        player2 = new AIPlayer(drawer, White);
-    } else if (typeOfGame == 3) {
-        // get ip and port from file
-        ifstream inFile;
-        inFile.open("setting_client.txt");
-        string ip;
-        int port;
-        inFile >> ip;
-        inFile >> port;
-        const char *ip_c = ip.c_str();
+    switch (typeOfGame) {
+        case 1:
+            player1 = new LocalPlayer(drawer, Black);
+            player2 = new LocalPlayer(drawer, White);
+            break;
+        case 2:
+            player1 = new LocalPlayer(drawer, Black);
+            player2 = new AIPlayer(drawer, White);
+            break;
+        case 3:
+            // get ip and port from file
+            ifstream inFile;
+            inFile.open("setting_client.txt");
+            string ip;
+            int port;
+            inFile >> ip;
+            inFile >> port;
+            const char *ip_c = ip.c_str();
 
-        RemoteGameClient remoteGameClient(ip_c, port);
-        try {
-            int clientNumber = remoteGameClient.connectToServer();
-            if (clientNumber == 1) {
-                player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);
-                player2 = new RemotePlayer(drawer, White, remoteGameClient);
-            } else {
-                player1 = new LocalClientPlayer(drawer, White, remoteGameClient);
-                player2 = new RemotePlayer(drawer, Black, remoteGameClient);
+            RemoteGameClient remoteGameClient(ip_c, port);
+            try {
+                int clientNumber = remoteGameClient.connectToServer();
+                if (clientNumber == 1) {
+                    player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);
+                    player2 = new RemotePlayer(drawer, White, remoteGameClient);
+                } else {
+                    player1 = new LocalClientPlayer(drawer, White, remoteGameClient);
+                    player2 = new RemotePlayer(drawer, Black, remoteGameClient);
+                }
+            } catch (const char *msg) {
+                cout << "Error in Remote Game Client with message: " << msg << endl;
+                return 0;
             }
-        } catch (const char *msg) {
-            cout << "Error in Remote Game Client with message: " << msg << endl;
-            return 0;
-        }
+            break;
     }
 
     // create the game
-    Game game(BOARD_SIZE, logic, player1, player2, drawer, typeOfGame);
+    Game game(BOARD_SIZE, logic, player1, player2, drawer);
 
     // run the  game
     game.run();

@@ -1,7 +1,3 @@
-//
-// Created by omer on 12/1/17.
-//
-
 #include "LocalClientPlayer.h"
 
 LocalClientPlayer::LocalClientPlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
@@ -28,6 +24,12 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
 
         return NULL;
     }
+
+    // print the player move title
+    this->drawer_->darwPlayerMoveTitle(this->getPlayerColor());
+
+    // print the possible moves
+    this->drawer_->drawPossibleMovesTitle(points);
 
     do {
         // print
@@ -72,8 +74,12 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
             moveBuff[i] = '\0';
         }
     }
-    this->remoteGameClient_.sendToServer(moveBuff);
 
+    try {
+        this->remoteGameClient_.sendToServer(moveBuff);
+    } catch (const char *msg) {
+        return NULL;
+    }
     return point;
 }
 

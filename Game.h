@@ -1,8 +1,3 @@
-//
-// omer lichter
-// id: 314649666
-//
-
 #ifndef EX1_GAME_H
 #define EX1_GAME_H
 
@@ -21,8 +16,7 @@ public:
      * @param blackPlayer - black player
      * @param whitePlayer - white player
      */
-    Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer,
-        int typeOfGame);
+    Game(int size, Logic* logic, Player* blackPlayer, Player* whitePlayer, Drawer *drawer);
     /**
      * destructor
      */
@@ -38,7 +32,6 @@ private:
     Board* board_;
     Logic* logic_;
     Drawer* drawer_;
-    int typeOfGame;
 
     /**
     * playe one turn
