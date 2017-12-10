@@ -9,8 +9,7 @@
 #include "LocalClientPlayer.h"
 #include "RemotePlayer.h"
 
-
-#define BOARD_SIZE 4
+#define BOARD_SIZE 8
 
 using namespace std;
 
@@ -46,8 +45,10 @@ int main(int argc, char** argv) {
             inFile >> port;
             const char *ip_c = ip.c_str();
 
+            // create client
             RemoteGameClient remoteGameClient(ip_c, port);
             try {
+                // try to connect
                 int clientNumber = remoteGameClient.connectToServer();
                 if (clientNumber == 1) {
                     player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);

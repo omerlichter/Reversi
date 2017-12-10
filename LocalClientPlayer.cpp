@@ -1,5 +1,7 @@
 #include "LocalClientPlayer.h"
 
+#define BUFFER_SIZE 10
+
 LocalClientPlayer::LocalClientPlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
     Player(drawer, color), remoteGameClient_(remoteGameClient){
 
@@ -66,8 +68,8 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
     // send to the server
     string pointString = point->toString();
     const char *pointBuff = pointString.c_str();
-    char moveBuff[10];
-    for (int i = 0; i < 10; i++) {
+    char moveBuff[BUFFER_SIZE];
+    for (int i = 0; i < BUFFER_SIZE; i++) {
         if (i < pointString.size()) {
             moveBuff[i] = pointBuff[i];
         } else {

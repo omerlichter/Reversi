@@ -1,5 +1,7 @@
 #include "RemotePlayer.h"
 
+#define BUFFER_SIZE 10
+
 RemotePlayer::RemotePlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
         Player(drawer, color), remoteGameClient_(remoteGameClient) {
 }
@@ -7,11 +9,13 @@ RemotePlayer::RemotePlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteG
 
 Point* RemotePlayer::chooseMove(vector<Point> *points, const Logic &logic, const Board &board) const {
 
+    // draw on screen
     string message = "waiting for other player's move...";
     this->drawer_->drawMessage(message);
 
-    char moveBuff[10];
+    char moveBuff[BUFFER_SIZE];
 
+    // try to get message from server
     try {
         this->remoteGameClient_.getFromServer(moveBuff);
     } catch (const char *msg) {
@@ -19,12 +23,15 @@ Point* RemotePlayer::chooseMove(vector<Point> *points, const Logic &logic, const
         return NULL;
     }
 
+    // string of the move
     string pointString(moveBuff);
+
     if (pointString.compare("NoMove") ==  0) {
         string message = "No possible moves. Play passes back to the other player. ";
         this->drawer_->drawMessage(message);
         return NULL;
     } else {
+        // create point from the string
         Point *point = new Point(pointString);
 
         // draw chosen move
