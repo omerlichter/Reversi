@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
 
     // draw the open menu, and return the chosen option
     int typeOfGame = drawer->drawOpenMenu();
+    // switch for the game type.
     switch (typeOfGame) {
         case 1:
             player1 = new LocalPlayer(drawer, Black);
