@@ -59,6 +59,9 @@ int main(int argc, char** argv) {
                 }
             } catch (const char *msg) {
                 cout << "Error in Remote Game Client with message: " << msg << endl;
+                // delete memory
+                delete(logic);
+                delete(drawer);
                 return 0;
             }
             break;
@@ -75,6 +78,5 @@ int main(int argc, char** argv) {
     delete(player1);
     delete(player2);
     delete(drawer);
-
     return 0;
 }
