@@ -112,3 +112,9 @@ void ConsoleDrawer::drawChosenPoint(Cell playerColor, Point &point) const {
     cout << "(" << point.toString() << ")" << endl;
     cout << endl;
 }
+
+string ConsoleDrawer::getCommandFromUser() const {
+    string commandString;
+    cin >> commandString;
+    return commandString;
+}

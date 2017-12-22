@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include "RemoteGameClient.h"
 
+#define BUFFER_SIZE 255
+
 using namespace std;
 
 RemoteGameClient::RemoteGameClient(const char *serverIP, int serverPort):
@@ -14,7 +16,7 @@ RemoteGameClient::RemoteGameClient(const char *serverIP, int serverPort):
         clientSocket_(0) {
 }
 
-int RemoteGameClient::connectToServer() {
+void RemoteGameClient::connectToServer() {
     // Create a socket point
     this->clientSocket_ = socket(AF_INET, SOCK_STREAM, 0);
     if (this->clientSocket_ == -1) {
@@ -48,6 +50,8 @@ int RemoteGameClient::connectToServer() {
         throw "Error connecting to server";
     }
     cout << "Connected to server" << endl;
+
+    /*
     cout << "waiting for other player to join..." << endl;
 
     //-----------------------------------
@@ -57,12 +61,12 @@ int RemoteGameClient::connectToServer() {
     if (stat == -1) {
         throw "Error read playerNumber from socket";
     }
-    return playerNumber;
+    return playerNumber;*/
 }
 
 int RemoteGameClient::sendToServer(const char *moveBuff) const {
     // send the buffer to the server
-    int stat = write(this->clientSocket_, moveBuff, 10);
+    int stat = write(this->clientSocket_, moveBuff, BUFFER_SIZE);
     if (stat == -1) {
         throw "Error writing moveBuff to socket";
     }
@@ -71,7 +75,7 @@ int RemoteGameClient::sendToServer(const char *moveBuff) const {
 
 int RemoteGameClient::getFromServer(char *moveBuff) const {
     // read the buffer from server
-    int stat = read(this->clientSocket_, moveBuff, 10);
+    int stat = read(this->clientSocket_, moveBuff, BUFFER_SIZE);
     if (stat == -1) {
         throw "Error reading moveBuff from socket";
     }

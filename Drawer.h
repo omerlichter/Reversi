@@ -49,6 +49,8 @@ public:
      * print the chosen point
      */
     virtual void drawChosenPoint(Cell playerColor, Point& point) const  = 0;
+
+    virtual string getCommandFromUser() const = 0 ;
 };
 
 

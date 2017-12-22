@@ -1,6 +1,6 @@
 #include "LocalClientPlayer.h"
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 255
 
 LocalClientPlayer::LocalClientPlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
     Player(drawer, color), remoteGameClient_(remoteGameClient){
@@ -74,6 +74,7 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
             moveBuff[i] = pointBuff[i];
         } else {
             moveBuff[i] = '\0';
+            break;
         }
     }
 

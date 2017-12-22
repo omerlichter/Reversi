@@ -14,7 +14,7 @@ public:
      * connect to the server
      * @return the player number in the game
      */
-    int connectToServer() ;
+    void connectToServer() ;
     /**
      * send message to server
      * @param moveBuff - buffer with the move

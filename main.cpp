@@ -50,20 +50,29 @@ int main(int argc, char** argv) {
             RemoteGameClient remoteGameClient(ip_c, port);
             try {
                 // try to connect
-                int clientNumber = remoteGameClient.connectToServer();
-                if (clientNumber == 1) {
-                    player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);
-                    player2 = new RemotePlayer(drawer, White, remoteGameClient);
-                } else {
-                    player1 = new LocalClientPlayer(drawer, White, remoteGameClient);
-                    player2 = new RemotePlayer(drawer, Black, remoteGameClient);
-                }
+                remoteGameClient.connectToServer();
             } catch (const char *msg) {
                 cout << "Error in Remote Game Client with message: " << msg << endl;
                 // delete memory
                 delete(logic);
                 delete(drawer);
                 return 0;
+            }
+
+            bool joinedGame = false;
+            while (!joinedGame) {
+                string command = drawer->getCommandFromUser();
+                const char *buffer = command.c_str();
+                remoteGameClient.sendToServer(buffer);
+            }
+
+            int clientNumber = 0;
+            if (clientNumber == 1) {
+                player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);
+                player2 = new RemotePlayer(drawer, White, remoteGameClient);
+            } else {
+                player1 = new LocalClientPlayer(drawer, White, remoteGameClient);
+                player2 = new RemotePlayer(drawer, Black, remoteGameClient);
             }
             break;
     }

@@ -1,6 +1,6 @@
 #include "RemotePlayer.h"
 
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 255
 
 RemotePlayer::RemotePlayer(Drawer *drawer, Cell color, RemoteGameClient &remoteGameClient) :
         Player(drawer, color), remoteGameClient_(remoteGameClient) {
