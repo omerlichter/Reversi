@@ -63,6 +63,7 @@ int main(int argc, char** argv) {
             while (!joinedGame) {
                 string command = drawer->getCommandFromUser();
                 const char *buffer = command.c_str();
+                cout << buffer << endl;
                 remoteGameClient.sendToServer(buffer);
             }
 
