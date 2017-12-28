@@ -93,11 +93,11 @@ bool Game::playOneTurn(Player* player) {
         return false;
     }
 
-    // if there is error in the computong of the move, exit the game
+    // if there is error in the computing of the move, exit the game
     if (chosenMove->getColumn() == -1 && chosenMove->getRow() == -1) {
         delete(moveOptions);
         delete(chosenMove);
-        throw "error on computing move";
+        throw "you/other player close the game";
     }
 
     // play the chosen move
@@ -107,5 +107,3 @@ bool Game::playOneTurn(Player* player) {
     delete(chosenMove);
     return true;
 }
-
-

@@ -46,19 +46,6 @@ void RemoteGameClient::connectToServer() {
     *)&serverAddress, sizeof(serverAddress)) == -1) {
         throw "Error connecting to server";
     }
-    cout << "Connected to server" << endl;
-
-    /*
-    cout << "waiting for other player to join..." << endl;
-
-    //-----------------------------------
-    // read the player number from server
-    int playerNumber;
-    int stat = read(this->clientSocket_, &playerNumber, sizeof(playerNumber));
-    if (stat == -1) {
-        throw "Error read playerNumber from socket";
-    }
-    return playerNumber;*/
 }
 
 int RemoteGameClient::sendToServer(const string& message) const {
@@ -88,6 +75,9 @@ string RemoteGameClient::getFromServer() const {
     int stat = read(this->clientSocket_, messageBuffer, BUFFER_SIZE);
     if (stat == -1) {
         throw "Error reading moveBuff from socket";
+    }
+    if (stat == 0) {
+        throw "client disconnected";
     }
 
     string message(messageBuffer);

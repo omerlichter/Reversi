@@ -41,6 +41,12 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
 
         validPoint = true;
         cin >> input;
+
+        if (input == "close") {
+            this->endOfGame();
+            return new Point(-1, -1);
+        }
+
         int i = input.find(',');
         if (i != -1) {
             string rowString = input.substr(0, i);

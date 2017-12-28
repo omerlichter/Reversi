@@ -63,7 +63,7 @@ void ConsoleDrawer::drawPossibleMovesTitle(vector<Point> *moves) const {
 }
 
 void ConsoleDrawer::drawPlayerInsertDialog() const {
-    cout << "Please enter your move row,col: ";
+    cout << "Please enter your move row,col (or 'close' for close the game): ";
 }
 
 void ConsoleDrawer::drawMessage(const string &message) const {
@@ -115,6 +115,8 @@ void ConsoleDrawer::drawChosenPoint(Cell playerColor, Point &point) const {
 
 int ConsoleDrawer::drawServerMenu() const {
     int chosenOption;
+
+    cout << endl;
     do {
         cout << "----Server Menu----" << endl << endl;
         cout << "Choose one of the options:" << endl;

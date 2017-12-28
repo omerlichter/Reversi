@@ -34,7 +34,7 @@ Point* RemotePlayer::chooseMove(vector<Point> *points, const Logic &logic, const
         Point *point = new Point(pointString);
 
         // draw chosen move
-        drawer_->drawChosenPoint(White, *point);
+        drawer_->drawChosenPoint(this->playerColor_, *point);
         return point;
     }
 }

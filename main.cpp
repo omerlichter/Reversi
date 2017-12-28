@@ -9,7 +9,7 @@
 #include "LocalClientPlayer.h"
 #include "RemotePlayer.h"
 
-#define BOARD_SIZE 8
+#define BOARD_SIZE 4
 
 using namespace std;
 
@@ -78,7 +78,9 @@ int main(int argc, char** argv) {
                             string status = remoteGameClient.getFromServer();
                             if (status == "1") {
                                 joinedGame = true;
+                                drawer->drawMessage("waiting for other player to join...");
                             } else if (status == "-1") {
+                                drawer->drawMessage("game name already exist");
                                 continue;
                             }
                         } catch (const char *message) {
@@ -101,6 +103,7 @@ int main(int argc, char** argv) {
                             if (status == "1") {
                                 joinedGame = true;
                             } else if (status == "-1") {
+                                drawer->drawMessage("no available game room with this name");
                                 continue;
                             }
                         } catch (const char *message) {
@@ -122,7 +125,9 @@ int main(int argc, char** argv) {
                             string gameRoomName;
                             do {
                                 gameRoomName = remoteGameClient.getFromServer();
-                                drawer->drawMessage(gameRoomName);
+                                if (gameRoomName != "EndLoop") {
+                                    drawer->drawMessage(gameRoomName);
+                                }
                             } while (gameRoomName != "EndLoop");
 
                         } catch (const char *message) {
@@ -133,8 +138,6 @@ int main(int argc, char** argv) {
                     }
                 }
             }
-
-            drawer->drawMessage("waiting for other player to join...");
             string clientNumber = remoteGameClient.getFromServer();
             if (clientNumber == "1") {
                 player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);

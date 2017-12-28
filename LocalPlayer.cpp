@@ -31,6 +31,11 @@ Point* LocalPlayer::chooseMove(vector<Point>* points, const Logic& logic, const 
         validPoint = true;
         cin >> input;
         int i = input.find(',');
+
+        if (input == "close") {
+            return new Point(-1, -1);
+        }
+
         if (i != -1) {
             string rowString = input.substr(0, i);
             string colString = input.substr(i + 1);
