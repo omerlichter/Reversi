@@ -48,27 +48,95 @@ int main(int argc, char** argv) {
 
             // create client
             RemoteGameClient remoteGameClient(ip_c, port);
-            try {
-                // try to connect
-                remoteGameClient.connectToServer();
-            } catch (const char *msg) {
-                cout << "Error in Remote Game Client with message: " << msg << endl;
-                // delete memory
-                delete(logic);
-                delete(drawer);
-                return 0;
-            }
 
             bool joinedGame = false;
             while (!joinedGame) {
-                string command = drawer->getCommandFromUser();
-                const char *buffer = command.c_str();
-                cout << buffer << endl;
-                remoteGameClient.sendToServer(buffer);
+
+                try {
+                    // try to connect
+                    remoteGameClient.connectToServer();
+                } catch (const char *msg) {
+                    cout << "Error in Remote Game Client with message: " << msg << endl;
+                    // delete memory
+                    delete(logic);
+                    delete(drawer);
+                    return 0;
+                }
+
+                int command = drawer->drawServerMenu();
+                stringstream commandStream;
+                string commandString;
+                switch (command) {
+                    case 1:
+                    {
+                        drawer->drawMessage("enter game room name");
+                        string gameRoomName = drawer->getCommandFromUser();
+                        commandStream << "start <" << gameRoomName << ">";
+                        commandString = commandStream.str();
+                        try {
+                            remoteGameClient.sendToServer(commandString);
+                            string status = remoteGameClient.getFromServer();
+                            if (status == "1") {
+                                joinedGame = true;
+                            } else if (status == "-1") {
+                                continue;
+                            }
+                        } catch (const char *message) {
+                            cout << "Error in Remote Game Client with message: " << message << endl;
+                            return 0;
+                        }
+                        break;
+                    }
+
+
+                    case 2:
+                    {
+                        drawer->drawMessage("enter game room name");
+                        string gameRoomName = drawer->getCommandFromUser();
+                        commandStream << "join <" << gameRoomName << ">";
+                        commandString = commandStream.str();
+                        try {
+                            remoteGameClient.sendToServer(commandString);
+                            string status = remoteGameClient.getFromServer();
+                            if (status == "1") {
+                                joinedGame = true;
+                            } else if (status == "-1") {
+                                continue;
+                            }
+                        } catch (const char *message) {
+                            cout << "Error in Remote Game Client with message: " << message << endl;
+                            return 0;
+                        }
+                        break;
+                    }
+
+
+                    case 3:
+                    {
+                        commandStream << "list_games";
+                        commandString = commandStream.str();
+
+                        try {
+                            remoteGameClient.sendToServer(commandString);
+                            drawer->drawMessage("list of game rooms:");
+                            string gameRoomName;
+                            do {
+                                gameRoomName = remoteGameClient.getFromServer();
+                                drawer->drawMessage(gameRoomName);
+                            } while (gameRoomName != "EndLoop");
+
+                        } catch (const char *message) {
+                            cout << "Error in Remote Game Client with message: " << message << endl;
+                            continue;
+                        }
+                        break;
+                    }
+                }
             }
 
-            int clientNumber = 0;
-            if (clientNumber == 1) {
+            drawer->drawMessage("waiting for other player to join...");
+            string clientNumber = remoteGameClient.getFromServer();
+            if (clientNumber == "1") {
                 player1 = new LocalClientPlayer(drawer, Black, remoteGameClient);
                 player2 = new RemotePlayer(drawer, White, remoteGameClient);
             } else {

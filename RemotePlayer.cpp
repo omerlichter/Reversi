@@ -13,14 +13,13 @@ Point* RemotePlayer::chooseMove(vector<Point> *points, const Logic &logic, const
     string message = "waiting for other player's move...";
     this->drawer_->drawMessage(message);
 
-    char moveBuff[BUFFER_SIZE];
-
+    string moveBuff;
     // try to get message from server
     try {
-        this->remoteGameClient_.getFromServer(moveBuff);
+        moveBuff = this->remoteGameClient_.getFromServer();
     } catch (const char *msg) {
         cout << msg << endl;
-        return NULL;
+        return new Point(-1, -1);
     }
 
     // string of the move

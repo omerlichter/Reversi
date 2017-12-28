@@ -113,6 +113,25 @@ void ConsoleDrawer::drawChosenPoint(Cell playerColor, Point &point) const {
     cout << endl;
 }
 
+int ConsoleDrawer::drawServerMenu() const {
+    int chosenOption;
+    do {
+        cout << "----Server Menu----" << endl << endl;
+        cout << "Choose one of the options:" << endl;
+        cout << "1. start new game room" << endl;
+        cout << "2. join game room" << endl;
+        cout << "3. get list of game rooms" << endl;
+
+        cin >> chosenOption;
+        if (chosenOption != 1 && chosenOption != 2 && chosenOption != 3) {
+            cout << "not valid option" << endl;
+        }
+
+    } while (chosenOption != 1 && chosenOption != 2 && chosenOption != 3);
+
+    return chosenOption;
+}
+
 string ConsoleDrawer::getCommandFromUser() const {
     string commandString;
     cin >> commandString;

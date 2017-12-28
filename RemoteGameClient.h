@@ -1,6 +1,9 @@
 #ifndef REVERSI_REMOTEGAMECLIENT_H
 #define REVERSI_REMOTEGAMECLIENT_H
 
+#include <string.h>
+
+using namespace std;
 
 class RemoteGameClient {
 public:
@@ -20,13 +23,13 @@ public:
      * @param moveBuff - buffer with the move
      * @return 0 if succeed
      */
-    int sendToServer(const char* moveBuff) const ;
+    int sendToServer(const string& message) const ;
     /**
      * get message from server
      * @param moveBuff - buffer for write to
      * @return if succeed
      */
-    int getFromServer(char* moveBuff) const ;
+    string getFromServer() const ;
 
 private:
     const char *serverIP_;

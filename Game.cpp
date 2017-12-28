@@ -39,10 +39,15 @@ void Game::run() {
         // start new turn
         turnNumber++;
 
-        if (turnNumber % 2 == 0) {
-            whitePlayerHaveOptions = this->playOneTurn(whitePlayer);
-        } else {
-            blackPlayerHaveOptions = this->playOneTurn(blackPlayer);
+        try {
+            if (turnNumber % 2 == 0) {
+                whitePlayerHaveOptions = this->playOneTurn(whitePlayer);
+            } else {
+                blackPlayerHaveOptions = this->playOneTurn(blackPlayer);
+            }
+        } catch (const char *message) {
+            this->drawer_->drawMessage(message);
+            return;
         }
 
         // add the number of full cells
@@ -86,6 +91,13 @@ bool Game::playOneTurn(Player* player) {
     if (chosenMove == NULL) {
         delete(moveOptions);
         return false;
+    }
+
+    // if there is error in the computong of the move, exit the game
+    if (chosenMove->getColumn() == -1 && chosenMove->getRow() == -1) {
+        delete(moveOptions);
+        delete(chosenMove);
+        throw "error on computing move";
     }
 
     // play the chosen move

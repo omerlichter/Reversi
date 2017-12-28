@@ -21,9 +21,11 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
         this->drawer_->drawMessage(message);
 
         // send to the server
-        const char *moveBuff = "NoMove";
-        this->remoteGameClient_.sendToServer(moveBuff);
-
+        try {
+            this->remoteGameClient_.sendToServer("NoMove");
+        } catch (const char *message) {
+            return new Point(-1, -1);
+        }
         return NULL;
     }
 
@@ -67,21 +69,11 @@ Point* LocalClientPlayer::chooseMove(vector<Point> *points, const Logic &logic, 
 
     // send to the server
     string pointString = point->toString();
-    const char *pointBuff = pointString.c_str();
-    char moveBuff[BUFFER_SIZE];
-    for (int i = 0; i < BUFFER_SIZE; i++) {
-        if (i < pointString.size()) {
-            moveBuff[i] = pointBuff[i];
-        } else {
-            moveBuff[i] = '\0';
-            break;
-        }
-    }
 
     try {
-        this->remoteGameClient_.sendToServer(moveBuff);
+        this->remoteGameClient_.sendToServer(pointString);
     } catch (const char *msg) {
-        return NULL;
+        return new Point(-1, -1);
     }
     return point;
 }

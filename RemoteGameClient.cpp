@@ -3,13 +3,10 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include <string.h>
 #include <unistd.h>
 #include "RemoteGameClient.h"
 
 #define BUFFER_SIZE 255
-
-using namespace std;
 
 RemoteGameClient::RemoteGameClient(const char *serverIP, int serverPort):
         serverIP_(serverIP), serverPort_(serverPort),
@@ -64,20 +61,35 @@ void RemoteGameClient::connectToServer() {
     return playerNumber;*/
 }
 
-int RemoteGameClient::sendToServer(const char *moveBuff) const {
+int RemoteGameClient::sendToServer(const string& message) const {
     // send the buffer to the server
-    int stat = write(this->clientSocket_, moveBuff, BUFFER_SIZE);
+    // send to the server
+    const char *Buffstring = message.c_str();
+    char messageBuff[BUFFER_SIZE];
+    for (int i = 0; i < BUFFER_SIZE; i++) {
+        if (i < message.size()) {
+            messageBuff[i] = Buffstring[i];
+        } else {
+            messageBuff[i] = '\0';
+            break;
+        }
+    }
+    int stat = write(this->clientSocket_, messageBuff, BUFFER_SIZE);
     if (stat == -1) {
         throw "Error writing moveBuff to socket";
     }
     return 0;
 }
 
-int RemoteGameClient::getFromServer(char *moveBuff) const {
+string RemoteGameClient::getFromServer() const {
+
+    char messageBuffer[BUFFER_SIZE];
     // read the buffer from server
-    int stat = read(this->clientSocket_, moveBuff, BUFFER_SIZE);
+    int stat = read(this->clientSocket_, messageBuffer, BUFFER_SIZE);
     if (stat == -1) {
         throw "Error reading moveBuff from socket";
     }
-    return 0;
+
+    string message(messageBuffer);
+    return message;
 }
