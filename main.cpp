@@ -4,7 +4,7 @@
 #include "ConsoleDrawer.h"
 #include "GameMenuController.h"
 
-#define BOARD_SIZE 4
+#define BOARD_SIZE 8
 
 using namespace std;
 

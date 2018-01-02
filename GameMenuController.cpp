@@ -59,7 +59,7 @@ int GameMenuController::serverMenu(Player **firstPlayer, Player **secondPlayer, 
             {
                 drawer->drawMessage("enter game room name");
                 string gameRoomName = drawer->getCommandFromUser();
-                commandStream << "start <" << gameRoomName << ">";
+                commandStream << "start " << gameRoomName;
                 commandString = commandStream.str();
                 try {
                     remoteGameClient.sendToServer(commandString);
@@ -83,7 +83,7 @@ int GameMenuController::serverMenu(Player **firstPlayer, Player **secondPlayer, 
             {
                 drawer->drawMessage("enter game room name");
                 string gameRoomName = drawer->getCommandFromUser();
-                commandStream << "join <" << gameRoomName << ">";
+                commandStream << "join " << gameRoomName;
                 commandString = commandStream.str();
                 try {
                     remoteGameClient.sendToServer(commandString);
@@ -127,7 +127,13 @@ int GameMenuController::serverMenu(Player **firstPlayer, Player **secondPlayer, 
         }
     }
 
-    string clientNumber = remoteGameClient.getFromServer();
+    string clientNumber;
+    try {
+        clientNumber = remoteGameClient.getFromServer();
+    } catch (const char *message) {
+        cout << message << endl;
+        return 1;
+    }
     if (clientNumber == "1") {
         *firstPlayer = new LocalClientPlayer(drawer, Black, remoteGameClient);
         *secondPlayer = new RemotePlayer(drawer, White, remoteGameClient);
