@@ -11,6 +11,10 @@
 #include "RemotePlayer.h"
 #include "AIPlayer.h"
 #include "LocalPlayer.h"
+#include "ReversiLogic.h"
+#include "ConsoleDrawer.h"
+#include "Game.h"
+
 #include <iostream>
 #include <fstream>
 
@@ -18,10 +22,10 @@ using namespace std;
 
 class GameMenuController {
 public:
-    int startMenu(Player **firstPlayer, Player **secondPlayer, Drawer *drawer);
+    int startMenu();
 
 private:
-    int serverMenu(Player **firstPlayer, Player **secondPlayer, Drawer *drawer);
+    int serverMenu(Player **firstPlayer, Player **secondPlayer, RemoteGameClient *remoteGameClient , Drawer *drawer);
 };
 
 
