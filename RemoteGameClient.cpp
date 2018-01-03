@@ -58,7 +58,6 @@ int RemoteGameClient::sendToServer(const string& message) const {
             messageBuff[i] = Buffstring[i];
         } else {
             messageBuff[i] = '\0';
-            break;
         }
     }
     int stat = write(this->clientSocket_, messageBuff, BUFFER_SIZE);
